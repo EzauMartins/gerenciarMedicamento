@@ -1,6 +1,7 @@
 package ezau.bootcamp.everisDio.gerMedicamento.controller;
 
 
+import ezau.bootcamp.everisDio.gerMedicamento.dto.MensagemRetornoDTO;
 import ezau.bootcamp.everisDio.gerMedicamento.entity.Medicamento;
 import ezau.bootcamp.everisDio.gerMedicamento.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class MedicamentoController {
 
 
     @PostMapping
-    public String criarMedicamento(@RequestBody Medicamento medicamento){
-        medicamentoRepository.save(medicamento);
-        return "Medicamento Criado";
+    public MensagemRetornoDTO criarMedicamento(@RequestBody Medicamento medicamento){
+        Medicamento medicamentoSalvo = medicamentoRepository.save(medicamento);
+        return MensagemRetornoDTO
+                .builder()
+                .menssagem("Medicamento adicionado:" + medicamentoSalvo.getName())
+                .build();
     }
 
 
