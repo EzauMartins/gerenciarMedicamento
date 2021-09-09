@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -22,8 +19,10 @@ public class Tipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    @Column(nullable = false) // INDICA O ESTADO DO MEDICAMENTO(CAPSULA,COMPRIMIDO,LIQUIDO)
+    private String tipoMed;
 
+    @Column(nullable = false) // INDICA MEDIDADA (ml,Litro,unidade)
     private String medida;
 
 

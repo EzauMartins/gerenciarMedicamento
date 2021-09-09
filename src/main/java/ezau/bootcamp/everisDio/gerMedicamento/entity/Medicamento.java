@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,13 +26,10 @@ public class Medicamento {
 
 
     @Column(nullable = false)
-    private int medida;
-
-    @Column(nullable = false)
-    private String tipoMed;
-
-    @Column(nullable = false)
     private String tarja;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    private List<Tipo> tipo;
 
 
 }
