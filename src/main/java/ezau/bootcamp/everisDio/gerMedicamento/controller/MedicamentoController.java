@@ -4,33 +4,28 @@ package ezau.bootcamp.everisDio.gerMedicamento.controller;
 import ezau.bootcamp.everisDio.gerMedicamento.dto.MensagemRetornoDTO;
 import ezau.bootcamp.everisDio.gerMedicamento.entity.Medicamento;
 import ezau.bootcamp.everisDio.gerMedicamento.repository.MedicamentoRepository;
+import ezau.bootcamp.everisDio.gerMedicamento.service.MedicamentoService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/")
+@RequestMapping("/medicamentos")
 @RestController
+@AllArgsConstructor
 public class MedicamentoController {
 
-    private MedicamentoRepository medicamentoRepository;
+    private MedicamentoService medicamentoService;
 
-    @Autowired
-    public MedicamentoController(MedicamentoRepository medicamentoRepository){
-        this.medicamentoRepository = medicamentoRepository;
-    }
 
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public MensagemRetornoDTO criarMedicamento(@RequestBody Medicamento medicamento){
-        Medicamento medicamentoSalvo = medicamentoRepository.save(medicamento);
-        return MensagemRetornoDTO
-                .builder()
-                .menssagem("Medicamento adicionado:" + medicamentoSalvo.getName())
-                .build();
+        return medicamentoService.criarMedicamento(medicamento);
     }
+
+
 
 
 }
