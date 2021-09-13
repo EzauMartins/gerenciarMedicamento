@@ -28,6 +28,9 @@ public class Medicamento {
     @Column(nullable = false)
     private String tarja;
 
+    @Column(nullable = false, unique = true)
+    private Integer codBar;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Tipo> tipo;
 
