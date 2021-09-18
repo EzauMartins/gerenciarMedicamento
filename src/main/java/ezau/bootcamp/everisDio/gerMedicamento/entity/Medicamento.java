@@ -29,7 +29,7 @@ public class Medicamento {
     private String tarja;
 
     @Column(nullable = false, unique = true)
-    private Integer codBar;
+    private String codBar;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Tipo> tipo;
