@@ -1,32 +1,38 @@
 package ezau.bootcamp.everisDio.gerMedicamento.service;
 
 import ezau.bootcamp.everisDio.gerMedicamento.dto.MensagemRetornoDTO;
+import ezau.bootcamp.everisDio.gerMedicamento.dto.request.MedicamentoDTO;
+
 import ezau.bootcamp.everisDio.gerMedicamento.entity.Medicamento;
+import ezau.bootcamp.everisDio.gerMedicamento.mapper.MedicamentoMap;
 import ezau.bootcamp.everisDio.gerMedicamento.repository.MedicamentoRepository;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @Service
 public class MedicamentoService {
 
     private MedicamentoRepository medicamentoRepository;
 
-    @Autowired
-    public MedicamentoService(MedicamentoRepository medicamentoRepository){
-        this.medicamentoRepository = medicamentoRepository;
+    private final MedicamentoMap medicamentoMap = MedicamentoMap.INSTANCE;
+
+
+
+    public MensagemRetornoDTO criarMedicamento(MedicamentoDTO medicamentoDTO) {
+
+        Medicamento medicamentoAsalvar = medicamentoMap.toModel(medicamentoDTO);
+
+        Medicamento medicamentoSalvo = medicamentoRepository.save(medicamentoAsalvar);
+        return crairMensagemResposta(medicamentoSalvo.getId(),"Medicamento add iD:");
     }
 
-
-    public MensagemRetornoDTO criarMedicamento(Medicamento medicamento) {
-        Medicamento medicamentoSalvo = medicamentoRepository.save(medicamento);
-        return crairMensagemResposta(medicamentoSalvo.getName(), "Medicamento Adicionado:");
-    }
-
-    public MensagemRetornoDTO crairMensagemResposta(String nome, String retorno){
+    public MensagemRetornoDTO crairMensagemResposta(Long id, String retorno){
         return MensagemRetornoDTO
                 .builder()
-                .menssagem(retorno + nome)
+                .menssagem(retorno + id)
                 .build();
-    }
-}
+
+}}
