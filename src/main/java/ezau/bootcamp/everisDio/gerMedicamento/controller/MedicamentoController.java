@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/medicamentos")
@@ -28,7 +29,10 @@ public class MedicamentoController {
         return medicamentoService.criarMedicamento(medicamentoDTO);
     }
 
-
+    @GetMapping
+    public List<MedicamentoDTO> ListAll() {
+        return medicamentoService.listAll();
+    }
 
 
 }

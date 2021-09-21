@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Service
 public class MedicamentoService {
@@ -26,13 +29,21 @@ public class MedicamentoService {
         Medicamento medicamentoAsalvar = medicamentoMap.toModel(medicamentoDTO);
 
         Medicamento medicamentoSalvo = medicamentoRepository.save(medicamentoAsalvar);
-        return crairMensagemResposta(medicamentoSalvo.getId(),"Medicamento add iD:");
+        return crairMensagemResposta(medicamentoSalvo.getId(),"Medicamento adicionado id: ", " Nome: ");
     }
 
-    public MensagemRetornoDTO crairMensagemResposta(Long id, String retorno){
+    public MensagemRetornoDTO crairMensagemResposta(Long id, String retorno,String nome){
         return MensagemRetornoDTO
                 .builder()
-                .menssagem(retorno + id)
+                .menssagem(retorno + id + nome)
                 .build();
 
-}}
+}
+
+    public List<MedicamentoDTO> listAll() {
+       List<Medicamento> allMedicamentos = medicamentoRepository.findAll();
+       return allMedicamentos.stream()
+               .map(medicamentoMap::toDTO)
+               .collect(Collectors.toList());
+    }
+}
