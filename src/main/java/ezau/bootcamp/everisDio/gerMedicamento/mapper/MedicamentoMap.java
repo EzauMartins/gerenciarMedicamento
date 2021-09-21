@@ -11,7 +11,7 @@ public interface MedicamentoMap {
 
     MedicamentoMap INSTANCE = Mappers.getMapper(MedicamentoMap.class);
     Medicamento toModel(MedicamentoDTO medicamentoDTO);
-
+    
     MedicamentoDTO toDTO(Medicamento medicamento);
 
 }
