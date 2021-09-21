@@ -50,11 +50,9 @@ public class MedicamentoService {
     }
 
     public MedicamentoDTO findById(long id) throws MedicamentoNotFoundException {
-        Optional<Medicamento> optionalMedicamento = medicamentoRepository.findById(id);
-        if(optionalMedicamento.isEmpty()){
-            throw new MedicamentoNotFoundException(id);
-        }
-        return medicamentoMap.toDTO(optionalMedicamento.get());
+        Medicamento medicamento = medicamentoRepository.findById(id)
+                .orElseThrow(() -> new MedicamentoNotFoundException(id));
+        return medicamentoMap.toDTO(medicamento);
 
     }
 
