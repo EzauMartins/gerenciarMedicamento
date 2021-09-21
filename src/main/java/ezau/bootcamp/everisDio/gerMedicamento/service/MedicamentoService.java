@@ -9,6 +9,7 @@ import ezau.bootcamp.everisDio.gerMedicamento.mapper.MedicamentoMap;
 import ezau.bootcamp.everisDio.gerMedicamento.repository.MedicamentoRepository;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.internal.engine.messageinterpolation.parser.MessageDescriptorFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,12 @@ public class MedicamentoService {
                 .orElseThrow(() -> new MedicamentoNotFoundException(id));
         return medicamentoMap.toDTO(medicamento);
 
+    }
+
+    public void delById(Long id) throws MedicamentoNotFoundException {
+        medicamentoRepository.findById(id)
+                .orElseThrow(() -> new MedicamentoNotFoundException(id));
+        medicamentoRepository.deleteById(id);
     }
 
 }

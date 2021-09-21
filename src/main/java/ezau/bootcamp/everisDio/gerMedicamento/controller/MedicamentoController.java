@@ -40,5 +40,9 @@ public class MedicamentoController {
         return medicamentoService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void delById(@PathVariable Long id) throws MedicamentoNotFoundException {
+       medicamentoService.delById(id);
+    }
 
 }
