@@ -21,6 +21,11 @@ Possue os metodos principais, POST,GET,PUT e DELETE.<br />
 As entidades ultilizam copias DTO para o auxilio no controle de validação.<br />
 Banco H2 um banco em memória para agilidade dos testes.
 
+--localhost:8080/medicamentos
+	POST.
+--localhost:8080/medicamentos/1  | Numero indica o ID do ITEM
+	PUT. DELETE. GET.
+
 Exemplo de estrutura do JSON para POST na API:<br /><br />
 {<br />
 	"name": "Dipirona",<br />
