@@ -8,7 +8,7 @@ Projeto com intuito de concluir modulo do bootcamp, e demostrar aprendizado da t
 -----------------------------------------------------------
 
 Dependencias Ultilizadas:<br />
-Spring Web - DevTools - Lombok  - Banco H2 - Mapper
+Spring Web - DevTools - Lombok  - Banco H2 - mapstruct
 
 Construção:<br />
 A API a principio possui duas entidades, onde uma se refere ao medicamento<br />
