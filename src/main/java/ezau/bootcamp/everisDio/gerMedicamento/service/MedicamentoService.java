@@ -9,12 +9,10 @@ import ezau.bootcamp.everisDio.gerMedicamento.mapper.MedicamentoMap;
 import ezau.bootcamp.everisDio.gerMedicamento.repository.MedicamentoRepository;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.validator.internal.engine.messageinterpolation.parser.MessageDescriptorFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -25,24 +23,22 @@ public class MedicamentoService {
 
     private final MedicamentoMap medicamentoMap = MedicamentoMap.INSTANCE;
 
-
-
     public MensagemRetornoDTO criarMedicamento(MedicamentoDTO medicamentoDTO) {
-
         Medicamento medicamentoAsalvar = medicamentoMap.toModel(medicamentoDTO);
 
         Medicamento medicamentoSalvo = medicamentoRepository.save(medicamentoAsalvar);
-        return crairMensagemResposta(medicamentoSalvo.getId(),"Medicamento adicionado id: ", " Nome: ");
+        return criarMensagemResposta(medicamentoSalvo.getId(),"Medicamento adicionado id: ", " Nome: "+medicamentoSalvo.getName());
     }
 
-    public MensagemRetornoDTO crairMensagemResposta(Long id, String retorno,String nome){
+    //RESPONSE
+    public MensagemRetornoDTO criarMensagemResposta(Long id, String retorno, String nome){
         return MensagemRetornoDTO
                 .builder()
                 .menssagem(retorno + id + nome)
                 .build();
+    }
 
-}
-
+    //LIST
     public List<MedicamentoDTO> listAll() {
        List<Medicamento> allMedicamentos = medicamentoRepository.findAll();
        return allMedicamentos.stream()
@@ -50,17 +46,32 @@ public class MedicamentoService {
                .collect(Collectors.toList());
     }
 
+    //FIND
     public MedicamentoDTO findById(long id) throws MedicamentoNotFoundException {
         Medicamento medicamento = medicamentoRepository.findById(id)
                 .orElseThrow(() -> new MedicamentoNotFoundException(id));
         return medicamentoMap.toDTO(medicamento);
-
     }
 
+    //DELETE
     public void delById(Long id) throws MedicamentoNotFoundException {
         medicamentoRepository.findById(id)
                 .orElseThrow(() -> new MedicamentoNotFoundException(id));
         medicamentoRepository.deleteById(id);
     }
+
+    //UPDATE
+    public MensagemRetornoDTO updateById(Long id, MedicamentoDTO medicamentoDTO) throws MedicamentoNotFoundException {
+        medicamentoRepository.findById(id)
+                .orElseThrow(() -> new MedicamentoNotFoundException(id));
+
+        Medicamento medicamentoAsalvar = medicamentoMap.toModel(medicamentoDTO);
+
+        Medicamento medicamentoAtualiza = medicamentoRepository.save(medicamentoAsalvar);
+        return criarMensagemResposta(medicamentoAtualiza.getId(),"Medicamento Atualizado id: ", " Nome: "+medicamentoAtualiza.getName());
+
+
+    }
+
 
 }

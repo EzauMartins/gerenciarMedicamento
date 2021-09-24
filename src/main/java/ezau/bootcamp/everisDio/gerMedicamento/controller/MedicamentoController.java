@@ -41,8 +41,14 @@ public class MedicamentoController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delById(@PathVariable Long id) throws MedicamentoNotFoundException {
        medicamentoService.delById(id);
+    }
+
+    @PutMapping("/{id}")
+    public MensagemRetornoDTO updateByid(@PathVariable Long id, @RequestBody @Valid MedicamentoDTO medicamentoDTO) throws MedicamentoNotFoundException {
+        return medicamentoService.updateById(id,medicamentoDTO);
     }
 
 }
