@@ -11,7 +11,7 @@ Dependencias Ultilizadas:<br />
 Spring Web - DevTools - Lombok  - Banco H2 - Mapper
 
 Construção:<br />
-A API a principio possue duas entidades, onde uma se refere ao medicamento<br />
+A API a principio possui duas entidades, onde uma se refere ao medicamento<br />
 contendo suas informações como: (nome,tarja,codigo de barra e tipo)<br />
 Onde TIPO  é uma segunda entidade com o objetivo de informar o estado do medicamento:<br />
 EX(CAPSULA,COMPRIMIDO,LIQUIDO) e sua medida. EX(ml,litro,Unidade,peso)<br />
